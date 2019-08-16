@@ -1,0 +1,1 @@
+<html><style type="text/css">*{text-align: center;}</style><h1>Cordova Webview</h1><p>Only work in real device/android</p><html>

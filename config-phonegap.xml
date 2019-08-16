@@ -3,7 +3,7 @@
 	<name>Komunitas Dei Verbum</name>
 	<description>Aplikasi Komunitas Dei Verbum</description>
 	<author email="halo@ayomulai.online" href="https://ayomulai.online">Michael Seno Setiawan</author>
-	<content src="index.html" />
+	<content src="https://deiverbum.ayomulai.online" />
 	<!-- Network Request Whitelist -->
 	<access origin="*" />
 	<platform name="android">

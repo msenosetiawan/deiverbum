@@ -2,7 +2,7 @@
         {
           "name": "Komunitas Dei Verbum Lite",
           "short_name": "Komunitas Dei Verbum",
-          "start_url": "index.html",
+          "start_url": "https://deiverbum.ayomulai.online",
           "display": "standalone",
           "icons":[{"src": "data/images/header/logo.png"}],
           "prefer_related_applications": true,
