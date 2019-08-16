@@ -1,4 +1,4 @@
-angular.module("dei_verbum.controllers", [])
+angular.module("komunitas_dei_verbum.controllers", [])
 
 
 
@@ -30,7 +30,7 @@ angular.module("dei_verbum.controllers", [])
 				$rootScope.language_option = langKey;
 				localforage.setItem("language_option",langKey);
 			}catch(e){
-				localforage.setItem("language_option","id-id");
+				localforage.setItem("language_option","id");
 			}
 		}
 	};
@@ -43,7 +43,7 @@ angular.module("dei_verbum.controllers", [])
 	modal_language += "</ion-header-bar>";
 	modal_language += "<ion-content class=\"padding\">";
 	modal_language += "<div class=\"list\">";
-	modal_language += "<ion-radio icon=\"icon ion-android-radio-button-on\" ng-model=\"language_option\" ng-value=\"'id-id'\" ng-click=\"tryChangeLanguage('id-id')\">Indonesian - Bahasa</ion-radio>";
+	modal_language += "<ion-radio icon=\"icon ion-android-radio-button-on\" ng-model=\"language_option\" ng-value=\"'id'\" ng-click=\"tryChangeLanguage('id')\">Indonesian</ion-radio>";
 	modal_language += "<button class=\"button button-full button-positive-900\" ng-click=\"closeLanguageDialog()\">{{ 'Close' | translate }}</button>";
 	modal_language += "</div>";
 	modal_language += "</ion-content>";
@@ -61,7 +61,7 @@ angular.module("dei_verbum.controllers", [])
 		}).then(function(value){
 			$rootScope.language_option = value;
 		}).catch(function (err){
-			$rootScope.language_option = "id-id";
+			$rootScope.language_option = "id";
 		})
 	};
 	
@@ -76,18 +76,18 @@ angular.module("dei_verbum.controllers", [])
 	
 	localforage.getItem("language_option", function(err, value){
 		if(value === null){
-			localforage.setItem("language_option","id-id");
+			localforage.setItem("language_option","id");
 		}else{
 			$rootScope.changeLanguage(value);
 		}
 	}).then(function(value){
 		if(value === null){
-			localforage.setItem("language_option","id-id");
+			localforage.setItem("language_option","id");
 		}else{
 			$rootScope.changeLanguage(value);
 		}
 	}).catch(function (err){
-		localforage.setItem("language_option","id-id");
+		localforage.setItem("language_option","id");
 	})
 	// TODO: indexCtrl --|-- $rootScope.changeFontSize
 	$rootScope.changeFontSize = function(fontSize){
@@ -172,9 +172,9 @@ angular.module("dei_verbum.controllers", [])
 					for(var e = 0; e < keys.length ; e++) {
 						localforage.setItem(keys[e],[]);
 					}
-					$state.go("dei_verbum.main");
+					$state.go("komunitas_dei_verbum.dashboard");
 				}).catch(function(err) {
-					$state.go("dei_verbum.main");
+					$state.go("komunitas_dei_verbum.dashboard");
 				});
 			}
 			$rootScope.closeMenuPopover();
@@ -301,6 +301,106 @@ angular.module("dei_verbum.controllers", [])
 	controller_by_user();
 })
 
+// TODO: side_menusCtrl --|-- 
+.controller("side_menusCtrl", function($ionicConfig,$scope,$rootScope,$state,$location,$ionicScrollDelegate,$ionicListDelegate,$http,$httpParamSerializer,$stateParams,$timeout,$interval,$ionicLoading,$ionicPopup,$ionicPopover,$ionicActionSheet,$ionicSlideBoxDelegate,$ionicHistory,ionicMaterialInk,ionicMaterialMotion,$window,$ionicModal,base64,md5,$document,$sce,$ionicGesture,$translate,tmhDynamicLocale){
+	
+	$rootScope.headerExists = true;
+	$rootScope.ionWidth = $document[0].body.querySelector(".view-container").offsetWidth || 412;
+	$rootScope.grid64 = parseInt($rootScope.ionWidth / 64) ;
+	$rootScope.grid80 = parseInt($rootScope.ionWidth / 80) ;
+	$rootScope.grid128 = parseInt($rootScope.ionWidth / 128) ;
+	$rootScope.grid256 = parseInt($rootScope.ionWidth / 256) ;
+	$rootScope.last_edit = "-" ;
+	$scope.$on("$ionicView.afterEnter", function (){
+		var page_id = $state.current.name ;
+		$rootScope.page_id = page_id.replace(".","-") ;
+	});
+	if($rootScope.headerShrink == true){
+		$scope.$on("$ionicView.enter", function(){
+			$scope.scrollTop();
+		});
+	};
+	// TODO: side_menusCtrl --|-- $scope.scrollTop
+	$rootScope.scrollTop = function(){
+		$timeout(function(){
+			$ionicScrollDelegate.$getByHandle("top").scrollTop();
+		},100);
+	};
+	// TODO: side_menusCtrl --|-- $scope.toggleGroup
+	$scope.toggleGroup = function(group) {
+		if ($scope.isGroupShown(group)) {
+			$scope.shownGroup = null;
+		} else {
+			$scope.shownGroup = group;
+		}
+	};
+	
+	$scope.isGroupShown = function(group) {
+		return $scope.shownGroup === group;
+	};
+	
+	// TODO: side_menusCtrl --|-- $scope.redirect
+	// redirect
+	$scope.redirect = function($url){
+		$window.location.href = $url;
+	};
+	
+	// Set Motion
+	$timeout(function(){
+		ionicMaterialMotion.slideUp({
+			selector: ".slide-up"
+		});
+	}, 300);
+	// code 
+	
+	var popover_template = "";
+	popover_template += "<ion-popover-view class=\"fit\">";
+	popover_template += "	<ion-content>";
+	popover_template += "		<ion-list>";
+	popover_template += "			<a  class=\"item dark-ink\" ng-href=\"#/komunitas_dei_verbum/about_us\" ng-click=\"popover.hide()\">";
+	popover_template += "			{{ 'About Us' | translate }}";
+	popover_template += "			</a>";
+	popover_template += "			<a  class=\"item dark-ink\" ng-click=\"showLanguageDialog()\" >";
+	popover_template += "			{{ 'Language' | translate }}";
+	popover_template += "			</a>";
+	popover_template += "		</ion-list>";
+	popover_template += "	</ion-content>";
+	popover_template += "</ion-popover-view>";
+	
+	
+	$scope.popover = $ionicPopover.fromTemplate(popover_template,{
+		scope: $scope
+	});
+	
+	$scope.closePopover = function(){
+		$scope.popover.hide();
+	};
+	
+	$rootScope.closeMenuPopover = function(){
+		$scope.popover.hide();
+	};
+	
+	$scope.$on("$destroy", function(){
+		$scope.popover.remove();
+	});
+
+	// TODO: side_menusCtrl --|-- controller_by_user
+	// controller by user 
+	function controller_by_user(){
+		try {
+			
+			
+		} catch(e){
+		}
+	}
+	$scope.rating = {};
+	$scope.rating.max = 5;
+	
+	// animation ink (ionic-material)
+	ionicMaterialInk.displayEffect();
+	controller_by_user();
+})
+
 // TODO: about_usCtrl --|-- 
 .controller("about_usCtrl", function($ionicConfig,$scope,$rootScope,$state,$location,$ionicScrollDelegate,$ionicListDelegate,$http,$httpParamSerializer,$stateParams,$timeout,$interval,$ionicLoading,$ionicPopup,$ionicPopover,$ionicActionSheet,$ionicSlideBoxDelegate,$ionicHistory,ionicMaterialInk,ionicMaterialMotion,$window,$ionicModal,base64,md5,$document,$sce,$ionicGesture,$translate,tmhDynamicLocale){
 	
@@ -310,7 +410,7 @@ angular.module("dei_verbum.controllers", [])
 	$rootScope.grid80 = parseInt($rootScope.ionWidth / 80) ;
 	$rootScope.grid128 = parseInt($rootScope.ionWidth / 128) ;
 	$rootScope.grid256 = parseInt($rootScope.ionWidth / 256) ;
-	$rootScope.last_edit = "page_builder" ;
+	$rootScope.last_edit = "menu" ;
 	$scope.$on("$ionicView.afterEnter", function (){
 		var page_id = $state.current.name ;
 		$rootScope.page_id = page_id.replace(".","-") ;
@@ -358,7 +458,7 @@ angular.module("dei_verbum.controllers", [])
 	function controller_by_user(){
 		try {
 			
-			
+$ionicConfig.backButton.text("");			
 		} catch(e){
 		}
 	}
@@ -439,8 +539,8 @@ $ionicConfig.backButton.text("");
 	controller_by_user();
 })
 
-// TODO: mainCtrl --|-- 
-.controller("mainCtrl", function($ionicConfig,$scope,$rootScope,$state,$location,$ionicScrollDelegate,$ionicListDelegate,$http,$httpParamSerializer,$stateParams,$timeout,$interval,$ionicLoading,$ionicPopup,$ionicPopover,$ionicActionSheet,$ionicSlideBoxDelegate,$ionicHistory,ionicMaterialInk,ionicMaterialMotion,$window,$ionicModal,base64,md5,$document,$sce,$ionicGesture,$translate,tmhDynamicLocale){
+// TODO: faqsCtrl --|-- 
+.controller("faqsCtrl", function($ionicConfig,$scope,$rootScope,$state,$location,$ionicScrollDelegate,$ionicListDelegate,$http,$httpParamSerializer,$stateParams,$timeout,$interval,$ionicLoading,$ionicPopup,$ionicPopover,$ionicActionSheet,$ionicSlideBoxDelegate,$ionicHistory,ionicMaterialInk,ionicMaterialMotion,$window,$ionicModal,base64,md5,$document,$sce,$ionicGesture,$translate,tmhDynamicLocale){
 	
 	$rootScope.headerExists = true;
 	$rootScope.ionWidth = $document[0].body.querySelector(".view-container").offsetWidth || 412;
@@ -448,7 +548,7 @@ $ionicConfig.backButton.text("");
 	$rootScope.grid80 = parseInt($rootScope.ionWidth / 80) ;
 	$rootScope.grid128 = parseInt($rootScope.ionWidth / 128) ;
 	$rootScope.grid256 = parseInt($rootScope.ionWidth / 256) ;
-	$rootScope.last_edit = "page" ;
+	$rootScope.last_edit = "menu" ;
 	$scope.$on("$ionicView.afterEnter", function (){
 		var page_id = $state.current.name ;
 		$rootScope.page_id = page_id.replace(".","-") ;
@@ -458,13 +558,13 @@ $ionicConfig.backButton.text("");
 			$scope.scrollTop();
 		});
 	};
-	// TODO: mainCtrl --|-- $scope.scrollTop
+	// TODO: faqsCtrl --|-- $scope.scrollTop
 	$rootScope.scrollTop = function(){
 		$timeout(function(){
 			$ionicScrollDelegate.$getByHandle("top").scrollTop();
 		},100);
 	};
-	// TODO: mainCtrl --|-- $scope.toggleGroup
+	// TODO: faqsCtrl --|-- $scope.toggleGroup
 	$scope.toggleGroup = function(group) {
 		if ($scope.isGroupShown(group)) {
 			$scope.shownGroup = null;
@@ -477,7 +577,7 @@ $ionicConfig.backButton.text("");
 		return $scope.shownGroup === group;
 	};
 	
-	// TODO: mainCtrl --|-- $scope.redirect
+	// TODO: faqsCtrl --|-- $scope.redirect
 	// redirect
 	$scope.redirect = function($url){
 		$window.location.href = $url;
@@ -491,12 +591,150 @@ $ionicConfig.backButton.text("");
 	}, 300);
 	// code 
 
-	// TODO: mainCtrl --|-- controller_by_user
+	// TODO: faqsCtrl --|-- controller_by_user
 	// controller by user 
 	function controller_by_user(){
 		try {
 			
+$ionicConfig.backButton.text("");			
+		} catch(e){
+		}
+	}
+	$scope.rating = {};
+	$scope.rating.max = 5;
+	
+	// animation ink (ionic-material)
+	ionicMaterialInk.displayEffect();
+	controller_by_user();
+})
+
+// TODO: menu_oneCtrl --|-- 
+.controller("menu_oneCtrl", function($ionicConfig,$scope,$rootScope,$state,$location,$ionicScrollDelegate,$ionicListDelegate,$http,$httpParamSerializer,$stateParams,$timeout,$interval,$ionicLoading,$ionicPopup,$ionicPopover,$ionicActionSheet,$ionicSlideBoxDelegate,$ionicHistory,ionicMaterialInk,ionicMaterialMotion,$window,$ionicModal,base64,md5,$document,$sce,$ionicGesture,$translate,tmhDynamicLocale){
+	
+	$rootScope.headerExists = true;
+	$rootScope.ionWidth = $document[0].body.querySelector(".view-container").offsetWidth || 412;
+	$rootScope.grid64 = parseInt($rootScope.ionWidth / 64) ;
+	$rootScope.grid80 = parseInt($rootScope.ionWidth / 80) ;
+	$rootScope.grid128 = parseInt($rootScope.ionWidth / 128) ;
+	$rootScope.grid256 = parseInt($rootScope.ionWidth / 256) ;
+	$rootScope.last_edit = "menu" ;
+	$scope.$on("$ionicView.afterEnter", function (){
+		var page_id = $state.current.name ;
+		$rootScope.page_id = page_id.replace(".","-") ;
+	});
+	if($rootScope.headerShrink == true){
+		$scope.$on("$ionicView.enter", function(){
+			$scope.scrollTop();
+		});
+	};
+	// TODO: menu_oneCtrl --|-- $scope.scrollTop
+	$rootScope.scrollTop = function(){
+		$timeout(function(){
+			$ionicScrollDelegate.$getByHandle("top").scrollTop();
+		},100);
+	};
+	// TODO: menu_oneCtrl --|-- $scope.toggleGroup
+	$scope.toggleGroup = function(group) {
+		if ($scope.isGroupShown(group)) {
+			$scope.shownGroup = null;
+		} else {
+			$scope.shownGroup = group;
+		}
+	};
+	
+	$scope.isGroupShown = function(group) {
+		return $scope.shownGroup === group;
+	};
+	
+	// TODO: menu_oneCtrl --|-- $scope.redirect
+	// redirect
+	$scope.redirect = function($url){
+		$window.location.href = $url;
+	};
+	
+	// Set Motion
+	$timeout(function(){
+		ionicMaterialMotion.slideUp({
+			selector: ".slide-up"
+		});
+	}, 300);
+	// code 
+
+	// TODO: menu_oneCtrl --|-- controller_by_user
+	// controller by user 
+	function controller_by_user(){
+		try {
 			
+$ionicConfig.backButton.text("");			
+		} catch(e){
+		}
+	}
+	$scope.rating = {};
+	$scope.rating.max = 5;
+	
+	// animation ink (ionic-material)
+	ionicMaterialInk.displayEffect();
+	controller_by_user();
+})
+
+// TODO: menu_twoCtrl --|-- 
+.controller("menu_twoCtrl", function($ionicConfig,$scope,$rootScope,$state,$location,$ionicScrollDelegate,$ionicListDelegate,$http,$httpParamSerializer,$stateParams,$timeout,$interval,$ionicLoading,$ionicPopup,$ionicPopover,$ionicActionSheet,$ionicSlideBoxDelegate,$ionicHistory,ionicMaterialInk,ionicMaterialMotion,$window,$ionicModal,base64,md5,$document,$sce,$ionicGesture,$translate,tmhDynamicLocale){
+	
+	$rootScope.headerExists = true;
+	$rootScope.ionWidth = $document[0].body.querySelector(".view-container").offsetWidth || 412;
+	$rootScope.grid64 = parseInt($rootScope.ionWidth / 64) ;
+	$rootScope.grid80 = parseInt($rootScope.ionWidth / 80) ;
+	$rootScope.grid128 = parseInt($rootScope.ionWidth / 128) ;
+	$rootScope.grid256 = parseInt($rootScope.ionWidth / 256) ;
+	$rootScope.last_edit = "menu" ;
+	$scope.$on("$ionicView.afterEnter", function (){
+		var page_id = $state.current.name ;
+		$rootScope.page_id = page_id.replace(".","-") ;
+	});
+	if($rootScope.headerShrink == true){
+		$scope.$on("$ionicView.enter", function(){
+			$scope.scrollTop();
+		});
+	};
+	// TODO: menu_twoCtrl --|-- $scope.scrollTop
+	$rootScope.scrollTop = function(){
+		$timeout(function(){
+			$ionicScrollDelegate.$getByHandle("top").scrollTop();
+		},100);
+	};
+	// TODO: menu_twoCtrl --|-- $scope.toggleGroup
+	$scope.toggleGroup = function(group) {
+		if ($scope.isGroupShown(group)) {
+			$scope.shownGroup = null;
+		} else {
+			$scope.shownGroup = group;
+		}
+	};
+	
+	$scope.isGroupShown = function(group) {
+		return $scope.shownGroup === group;
+	};
+	
+	// TODO: menu_twoCtrl --|-- $scope.redirect
+	// redirect
+	$scope.redirect = function($url){
+		$window.location.href = $url;
+	};
+	
+	// Set Motion
+	$timeout(function(){
+		ionicMaterialMotion.slideUp({
+			selector: ".slide-up"
+		});
+	}, 300);
+	// code 
+
+	// TODO: menu_twoCtrl --|-- controller_by_user
+	// controller by user 
+	function controller_by_user(){
+		try {
+			
+$ionicConfig.backButton.text("");			
 		} catch(e){
 		}
 	}

@@ -1,0 +1,42 @@
+	<ion-view view-title=" Dashboard" hide-nav-bar="false" >
+		<!-- content -->
+		<ion-content delegate-handle="top" lazy-scroll  id="page-dashboard" class=" page-dashboard">
+		
+		<div class="dashboard-panel">
+			<div class="item item-title no-border item-positive-900">Dashboard</div>
+			<!-- row -->
+			<div class="row">
+				<a class="col-33 no-border light positive-bg ink"  ng-href="#/komunitas_dei_verbum/menu_one" >
+					<i class="icon ion-android-favorite" ></i>
+					<p>{{ "Menu One" | translate }}</p>
+				</a>
+				<a class="col-33 no-border light positive-900-bg ink"  ng-href="#/komunitas_dei_verbum/menu_two" >
+					<i class="icon ion-android-favorite" ></i>
+					<p>{{ "Menu Two" | translate }}</p>
+				</a>
+			</div>
+			<!-- ./row -->
+			<div class="item item-title no-border item-positive-900">Help</div>
+			<!-- row -->
+			<div class="row">
+				<a class="col-33 no-border light calm-bg ink"  ng-href="#/komunitas_dei_verbum/faqs" >
+					<i class="icon ion-android-chat" ></i>
+					<p>{{ "Faqs" | translate }}</p>
+				</a>
+				<a class="col-33 no-border light calm-900-bg ink" ng-click="openURL('market://details?id=com.imabuilder.ayomulaionline.komunitasdeiverbum')" >
+					<i class="icon ion-android-playstore" ></i>
+					<p>{{ "Rate This App" | translate }}</p>
+				</a>
+			</div>
+			<!-- ./row -->
+			
+
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		</ion-content>
+		<!-- ./content -->
+	</ion-view>

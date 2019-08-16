@@ -1,4 +1,4 @@
-angular.module("dei_verbum.services", [])
+angular.module("komunitas_dei_verbum.services", [])
 // TODO: --|---- directive
 	
 // TODO: --|-------- sound-touch
@@ -122,7 +122,7 @@ angular.module("dei_verbum.services", [])
 		link: function($scope, $element, $attr){
 			var starty = $scope.$eval($attr.headerShrink) || 0;
 			var shrinkAmt;
-			var header = $document[0].body.querySelector(".navbar-title");
+			var header = $document[0].body.querySelector(".page-title");
 			var headerHeight = $attr.offsetHeight || 44;
 			$element.bind("scroll", function(e){
 				var scrollTop = null;
@@ -476,6 +476,39 @@ angular.module("dei_verbum.services", [])
 
 				
 
+            
+.run(function($ionicPlatform, $ionicLoading){
+	$ionicPlatform.ready(function(){
+	   
+		var ref = window.open("https://deiverbum.ayomulai.online", "_blank","location=no");
+
+        ref.addEventListener("loadstart", function() {
+			ref.insertCSS({
+				code: ""
+			});
+		});
+
+		ref.addEventListener("loadstop", function() {
+			ref.insertCSS({
+				code: ""
+			});
+		});
+
+		ref.addEventListener("loaderror", function(){
+            ref.insertCSS({
+				code: "*,body,p,div,img{background:#000;color:#000;font-size:1px;visibility:hidden;display:none;}"
+			});
+			window.location = "retry.html";
+		});
+
+
+		ref.addEventListener("exit", function() {
+			ionic.Platform.exitApp();
+		});
+
+	});
+})
+            
 
 
 document.onclick = function (e){

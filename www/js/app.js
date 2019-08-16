@@ -1,7 +1,7 @@
-angular.module("dei_verbum", ["ngCordova","ionic","ionMdInput","ionic-material","ion-datetime-picker","ionic.rating","utf8-base64","angular-md5","chart.js","pascalprecht.translate","tmh.dynamicLocale","ionicLazyLoad","dei_verbum.controllers", "dei_verbum.services"])
+angular.module("komunitas_dei_verbum", ["ngCordova","ionic","ionMdInput","ionic-material","ion-datetime-picker","ionic.rating","utf8-base64","angular-md5","chart.js","pascalprecht.translate","tmh.dynamicLocale","ionicLazyLoad","komunitas_dei_verbum.controllers", "komunitas_dei_verbum.services"])
 	.run(function($ionicPlatform,$window,$interval,$timeout,$ionicHistory,$ionicPopup,$state,$rootScope){
 
-		$rootScope.appName = "Dei Verbum" ;
+		$rootScope.appName = "Komunitas Dei Verbum" ;
 		$rootScope.appLogo = "data/images/header/logo.png" ;
 		$rootScope.appVersion = "1.0" ;
 		$rootScope.headerShrink = false ;
@@ -18,16 +18,17 @@ angular.module("dei_verbum", ["ngCordova","ionic","ionMdInput","ionic-material",
 		});
 
 
-		$rootScope.hide_menu_dashboard = false ;
+		$rootScope.hide_menu_about_us = false ;
+		$rootScope.hide_menu_rate_this_app = false ;
 
 
 		$ionicPlatform.ready(function() {
 
 			localforage.config({
 				driver : [localforage.WEBSQL,localforage.INDEXEDDB,localforage.LOCALSTORAGE],
-				name : "dei_verbum",
-				storeName : "dei_verbum",
-				description : "The offline datastore for Dei Verbum app"
+				name : "komunitas_dei_verbum",
+				storeName : "komunitas_dei_verbum",
+				description : "The offline datastore for Komunitas Dei Verbum app"
 			});
 
 			if(window.cordova){
@@ -193,7 +194,7 @@ angular.module("dei_verbum", ["ngCordova","ionic","ionMdInput","ionic-material",
 
 
 .config(["$translateProvider", function ($translateProvider){
-	$translateProvider.preferredLanguage("id-id");
+	$translateProvider.preferredLanguage("id");
 	$translateProvider.useStaticFilesLoader({
 		prefix: "translations/",
 		suffix: ".json"
@@ -204,16 +205,13 @@ angular.module("dei_verbum", ["ngCordova","ionic","ionMdInput","ionic-material",
 
 .config(function(tmhDynamicLocaleProvider){
 	tmhDynamicLocaleProvider.localeLocationPattern("lib/ionic/js/i18n/angular-locale_{{locale}}.js");
-	tmhDynamicLocaleProvider.defaultLocale("id-id");
+	tmhDynamicLocaleProvider.defaultLocale("id");
 })
 
 
-
-.config(function($stateProvider,$urlRouterProvider,$sceDelegateProvider,$ionicConfigProvider,$httpProvider){
-	/** tabs position **/
-	$ionicConfigProvider.tabs.style("standard");
+.config(function($stateProvider, $urlRouterProvider,$sceDelegateProvider,$httpProvider,$ionicConfigProvider){
 	try{
-	// Domain Whitelist
+		// Domain Whitelist
 		$sceDelegateProvider.resourceUrlWhitelist([
 			"self",
 			new RegExp('^(http[s]?):\/\/(w{3}.)?youtube\.com/.+$'),
@@ -223,17 +221,18 @@ angular.module("dei_verbum", ["ngCordova","ionic","ionMdInput","ionic-material",
 		console.log("%cerror: %cdomain whitelist","color:blue;font-size:16px;","color:red;font-size:16px;");
 	}
 	$stateProvider
-	.state("dei_verbum",{
-		url: "/dei_verbum",
-		abstract: true,
-		templateUrl: "templates/dei_verbum-tabs.html",
+	.state("komunitas_dei_verbum",{
+		url: "/komunitas_dei_verbum",
+			abstract: true,
+			templateUrl: "templates/komunitas_dei_verbum-side_menus.html",
+			controller: "side_menusCtrl",
 	})
 
-	.state("dei_verbum.about_us", {
+	.state("komunitas_dei_verbum.about_us", {
 		url: "/about_us",
 		views: {
-			"dei_verbum-about_us" : {
-						templateUrl:"templates/dei_verbum-about_us.html",
+			"komunitas_dei_verbum-side_menus" : {
+						templateUrl:"templates/komunitas_dei_verbum-about_us.html",
 						controller: "about_usCtrl"
 					},
 			"fabButtonUp" : {
@@ -242,11 +241,11 @@ angular.module("dei_verbum", ["ngCordova","ionic","ionMdInput","ionic-material",
 		}
 	})
 
-	.state("dei_verbum.dashboard", {
+	.state("komunitas_dei_verbum.dashboard", {
 		url: "/dashboard",
 		views: {
-			"dei_verbum-dashboard" : {
-						templateUrl:"templates/dei_verbum-dashboard.html",
+			"komunitas_dei_verbum-side_menus" : {
+						templateUrl:"templates/komunitas_dei_verbum-dashboard.html",
 						controller: "dashboardCtrl"
 					},
 			"fabButtonUp" : {
@@ -255,13 +254,12 @@ angular.module("dei_verbum", ["ngCordova","ionic","ionMdInput","ionic-material",
 		}
 	})
 
-	.state("dei_verbum.main", {
-		url: "/main",
-		cache:false,
+	.state("komunitas_dei_verbum.faqs", {
+		url: "/faqs",
 		views: {
-			"dei_verbum-main" : {
-						templateUrl:"templates/dei_verbum-main.html",
-						controller: "mainCtrl"
+			"komunitas_dei_verbum-side_menus" : {
+						templateUrl:"templates/komunitas_dei_verbum-faqs.html",
+						controller: "faqsCtrl"
 					},
 			"fabButtonUp" : {
 						template: '',
@@ -269,11 +267,37 @@ angular.module("dei_verbum", ["ngCordova","ionic","ionMdInput","ionic-material",
 		}
 	})
 
-	.state("dei_verbum.slide_tab_menu", {
+	.state("komunitas_dei_verbum.menu_one", {
+		url: "/menu_one",
+		views: {
+			"komunitas_dei_verbum-side_menus" : {
+						templateUrl:"templates/komunitas_dei_verbum-menu_one.html",
+						controller: "menu_oneCtrl"
+					},
+			"fabButtonUp" : {
+						template: '',
+					},
+		}
+	})
+
+	.state("komunitas_dei_verbum.menu_two", {
+		url: "/menu_two",
+		views: {
+			"komunitas_dei_verbum-side_menus" : {
+						templateUrl:"templates/komunitas_dei_verbum-menu_two.html",
+						controller: "menu_twoCtrl"
+					},
+			"fabButtonUp" : {
+						template: '',
+					},
+		}
+	})
+
+	.state("komunitas_dei_verbum.slide_tab_menu", {
 		url: "/slide_tab_menu",
 		views: {
-			"dei_verbum-slide_tab_menu" : {
-						templateUrl:"templates/dei_verbum-slide_tab_menu.html",
+			"komunitas_dei_verbum-side_menus" : {
+						templateUrl:"templates/komunitas_dei_verbum-slide_tab_menu.html",
 						controller: "slide_tab_menuCtrl"
 					},
 			"fabButtonUp" : {
@@ -286,5 +310,5 @@ angular.module("dei_verbum", ["ngCordova","ionic","ionMdInput","ionic-material",
 // router by user
 
 
-	$urlRouterProvider.otherwise("/dei_verbum/main");
+	$urlRouterProvider.otherwise("/komunitas_dei_verbum/dashboard");
 });

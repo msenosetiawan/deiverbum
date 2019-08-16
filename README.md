@@ -1,2 +1,2 @@
-# Dei Verbum
+# Komunitas Dei Verbum
 Aplikasi Komunitas Dei Verbum
