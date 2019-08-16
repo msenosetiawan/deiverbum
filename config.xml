@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.imabuilder.ayomulaionline.komunitasdeiverbum" version="1.0.190816" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ayomulaionline.deiverbum" version="1.0.190816" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
 	<name>Komunitas Dei Verbum</name>
 	<description>Aplikasi Komunitas Dei Verbum</description>
 	<author email="halo@ayomulai.online" href="https://ayomulai.online">Michael Seno Setiawan</author>
