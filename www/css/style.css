@@ -237,36 +237,19 @@ ul.rating li i{color:#FFCC00}
 /** menu **/
 
 /** option page **/
-#page-about_us{background: url("../data/images/background/bg7.jpg") no-repeat left top fixed;background-size: cover;width:100%;height:100%;background-repeat:no-repeat;}
-#page-categories{background: url("../data/images/background/bg7.jpg") no-repeat left top fixed;background-size: cover;width:100%;height:100%;background-repeat:no-repeat;}
-#page-dashboard{background: url("../data/images/background/bg7.jpg") no-repeat left top fixed;background-size: cover;width:100%;height:100%;background-repeat:no-repeat;}
-#page-faqs{background: url("../data/images/background/bg7.jpg") no-repeat left top fixed;background-size: cover;width:100%;height:100%;background-repeat:no-repeat;}
-#page-post_bookmark{background: url("../data/images/background/transparent.png") no-repeat left top fixed;background-size: cover;width:100%;height:100%;background-repeat:no-repeat;}
-#page-posts{background: url("../data/images/background/bg7.jpg") no-repeat left top fixed;background-size: cover;width:100%;height:100%;background-repeat:no-repeat;}
-#page-user_login{background: url("../data/images/background/bg3.jpg") no-repeat left top fixed;background-size: cover;width:100%;height:100%;background-repeat:no-repeat;}
-#page-user_register{background: url("../data/images/background/bg3.jpg") no-repeat left top fixed;background-size: cover;width:100%;height:100%;background-repeat:no-repeat;}
-#page-users{background: url("../data/images/background/bg7.jpg") no-repeat left top fixed;background-size: cover;width:100%;height:100%;background-repeat:no-repeat;}
+#page-about_us{background: url("../data/images/background/bg10.jpg") no-repeat left top fixed;background-size: cover;width:100%;height:100%;background-repeat:no-repeat;}
+#page-dashboard{background: url("../data/images/background/bg0.jpg") no-repeat left top fixed;background-size: cover;width:100%;height:100%;background-repeat:no-repeat;}
 /** page about_us **/
-.about-us-box{background-color: rgba(255, 255, 255, 0.5);}
-.about-us-box .item{border-color: rgba(255, 255, 255, 0.5);border-left:0;border-right:0;}
+.about_us-box{background-color: rgba(255, 255, 255, 0.5);}.about_us-box .item{border-color: rgba(255, 255, 255, 0.5);border-left:0;border-right:0;}
 /** page dashboard **/
 
-/** page faqs **/
-
-/** page post_bookmark **/
-.post_bookmark{margin-top: 50%;}
-.post_bookmark .icon:before{font-size:72px;font-weight: 600;}
+.dashboard-panel .row .col-33 {text-decoration-line: unset;text-align: center;padding: 22px 20px 10px 20px;border:0;}
+.dashboard-panel .row .col-33 i {font-size: 28px;margin-bottom: 2px;}
+.dashboard-panel a:link, .dashboard-panel a:visited{text-decoration: none;}
+.dashboard-panel .row .col-33 p {font-size: 12px;font-weight:500;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}             
+            
+/** page main **/
 
 /** page slide_tab_menu **/
-
-/** page user_login **/
-
-.hero > .content h2{color: #fff;text-shadow: 0 1px 0px #000;}
-.social-login { position: fixed; bottom: 0;}
-.app-icon {background-color: #fff;background-size:cover !important; border-radius: 50%;height:80px;margin: 0 auto;width:80px;}
-
-/** page user_profile **/
-
-/** page user_register **/
 
 /** custom css **/
