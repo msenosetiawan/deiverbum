@@ -1,0 +1,28 @@
+	<ion-view view-title=" User Register" hide-nav-bar="true" >
+		<!-- content -->
+		<ion-content delegate-handle="top" lazy-scroll  id="page-user_register" class="page-user_register">
+		
+
+<div class="hero no-header flat">
+    <div class="content">
+        <div class="app-icon" style="background: url('data/images/avatar/pic0.jpg') center;"></div>
+        <h2>Dei Verbum</h2>
+    </div>
+</div>
+
+<div class="list">
+    <ion-md-input placeholder="User Name" highlight-color="assertive" type="text" ng-model="user_data.username"></ion-md-input>
+    <ion-md-input placeholder="Email" highlight-color="assertive" type="text" ng-model="user_data.email"></ion-md-input>
+    <ion-md-input placeholder="Password" highlight-color="assertive" type="password" ng-model="user_data.user_pass"></ion-md-input>
+    <ion-md-input placeholder="Display Name" highlight-color="energized" type="text" ng-model="user_data.display_name"></ion-md-input>
+</div>
+
+<div class="padding">
+    <button ng-click="submitRegister()" class="button button-full button-assertive ink">Sign Up</button>
+    <a ui-sref="dei_verbum.user_login" class="button button-full button-calm ink">Sign In Here</a>
+</div>
+
+
+		</ion-content>
+		<!-- ./content -->
+	</ion-view>

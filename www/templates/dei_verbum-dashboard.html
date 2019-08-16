@@ -1,0 +1,51 @@
+	<ion-view view-title=" Beranda" hide-nav-bar="false" >
+		<!-- content -->
+		<ion-content delegate-handle="top" lazy-scroll  id="page-dashboard" class=" page-dashboard">
+		
+    
+<!-- code slide hero -->
+<div class="assertive-900-bg slide-box-hero" ng-controller="postsCtrl">
+	<ion-slides class="slide-box-hero-content" options="{slidesPerView:1,autoplay:10000,loop:1}" slider="data.slider">
+		<ion-slide-page class="slide-box-hero-item" ng-repeat="item in data_posts | limitTo : 10:0" ng-if="item.x_featured_media_large!=null" >
+    		<div class="slide-box-hero-container" style="background: url('{{item.x_featured_media_large}}') no-repeat center center;">
+    			<div class="padding caption">
+    				<h2 ng-bind-html="item.title.rendered | strHTML"></h2>
+    				<a ng-href="#/dei_verbum/post_singles/{{item.id}}"> &gt;&gt;More</a>
+    			</div>
+    		</div>
+		</ion-slide-page>
+	</ion-slides>
+</div>
+<!-- ./code slide hero -->
+
+
+
+
+
+ 
+<!-- code items -->
+<div class="intro-box list light-bg dark" ng-controller="postsCtrl" >
+    <div class="list" ng-repeat="item in data_posts | limitTo: 5:0">
+        <div class="item item-colorful"  ng-bind-html="item.title.rendered | strHTML"></div>
+        <div class="item item-text-wrap" ng-class="item.x_featured_media ? 'item-thumbnail-left' : ''">
+            <img alt="" class="full-image" ng-src="{{item.x_featured_media}}" ng-if="item.x_featured_media!=null" />
+            <span ng-bind-html="item.excerpt.rendered | limitTo:140 | strHTML "></span>
+        </div>
+        <a class="item button button-clear colorful ink" href="#/dei_verbum/post_singles/{{item.id}}">More</a>
+    </div>
+</div>
+<!-- ./code items -->
+
+
+
+<div class="dark-bg stable">
+       <div class="padding text-center">&copy Ayo Mulai Online, 2019</div> 
+</div>
+
+<br/>
+<br/>
+
+    
+		</ion-content>
+		<!-- ./content -->
+	</ion-view>
