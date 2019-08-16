@@ -64,7 +64,8 @@
 	<preference name="DisallowOverscroll" value="true"/>
 	<preference name="SplashScreenDelay" value="5000"/>
 	<preference name="FadeSplashScreenDuration" value="0"/>
-	<preference name="android-minSdkVersion" value="28"/>
+	<preference name="android-minSdkVersion" value="19"/>
+	<preference name="android-targetSdkVersion"  value="28" />
 	<preference name="BackupWebStorage" value="none"/>
 	<preference name="SplashScreen" value="screen"/>
 	<preference name="StatusBarOverlaysWebView" value="false" />
